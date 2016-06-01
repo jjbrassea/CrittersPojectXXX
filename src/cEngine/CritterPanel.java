@@ -32,6 +32,7 @@ public class CritterPanel extends JPanel {
         setBackground(Color.CYAN);
         setPreferredSize(new Dimension(myFontSize * model.getWidth() + 20,
                                        myFontSize * model.getHeight() + 20));
+        
     }
 
     public void paintComponent(Graphics g) {

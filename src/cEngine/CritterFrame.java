@@ -13,6 +13,8 @@ import javax.swing.event.*;
 import java.util.*;
 import javax.swing.plaf.FontUIResource;
 
+import cGame.InputManager;
+
 public class CritterFrame extends JFrame {
     private CritterModel myModel;
     private CritterPanel myPicture;
@@ -56,7 +58,7 @@ public class CritterFrame extends JFrame {
     private void constructSouth() {
         // add timer controls to the south
         JPanel p = new JPanel();
-
+        
         final JSlider slider = new JSlider();
         slider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -127,6 +129,18 @@ public class CritterFrame extends JFrame {
         p.add(b6);
 
         add(p, BorderLayout.SOUTH);
+        
+        //This is crazy, yea; but its the simplist solution for now. 
+        
+        InputManager.getSinglton().addListener(p);
+        InputManager.getSinglton().addListener(slider);
+        InputManager.getSinglton().addListener(b1);
+        InputManager.getSinglton().addListener(b2);
+        InputManager.getSinglton().addListener(b3);
+        InputManager.getSinglton().addListener(b4);
+        InputManager.getSinglton().addListener(b5);
+        InputManager.getSinglton().addListener(b6);
+        InputManager.getSinglton().addListener(jl1);
     }
 
     // starts the simulation...assumes all critters have already been added
@@ -145,6 +159,14 @@ public class CritterFrame extends JFrame {
         myModel.updateColorString();
         pack();
         setVisible(true);
+        
+        setFocusable(true);
+        setAutoRequestFocus(true);
+        
+        myPicture.setFocusable(true);
+        
+        InputManager.getSinglton().addListener(this);
+        InputManager.getSinglton().addListener(myPicture);
     }
 
     // add right-hand column showing how many of each critter are alive
@@ -155,14 +177,19 @@ public class CritterFrame extends JFrame {
         for (int i = 0; i < counts.length; i++) {
             counts[i] = new JButton();
             p.add(counts[i]);
+            InputManager.getSinglton().addListener(counts[i]);
         }
 
         // add simulation count
         countButton = new JButton();
         countButton.setForeground(Color.BLUE);
         p.add(countButton);
-
+        
         add(p, BorderLayout.EAST);
+        
+        InputManager.getSinglton().addListener(p);
+        InputManager.getSinglton().addListener(countButton);
+        
         setCounts();
     }
 
