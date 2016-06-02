@@ -1,6 +1,6 @@
 package cEngine;
 
-import cGame.TEST.TEST;
+import cGame.critters.Player;
 
 // CSE 142 Homework 8 (Critters)
 // Authors: Stuart Reges and Marty Stepp
@@ -23,7 +23,7 @@ public class CritterMain {
 
         frame.add(30, FlyTrap.class);
         frame.add(30, Food.class);
-        frame.add(1, TEST.class);
+        frame.add(1, Player.class);
         
         frame.start();
     }
